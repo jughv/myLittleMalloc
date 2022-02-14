@@ -16,12 +16,12 @@ int main (int argc, char **argv){ //get the time per test all that is missing
 }
 
 
-void test1(){ //allocate then free 120 times
+void test1(){ //allocate then free 120 times //ill do this one
 
 }
 
 
-void test2(){ //allocate 120 times then free
+void test2(){ //allocate 120 times then free //you got this one
 
 }
 
@@ -29,10 +29,10 @@ void test3(){//random allocate, random free, dont free null
 
 }
 
-void test4(){ //some bullshit
+void test4(){ //some bullshit // you plan this one out
 
 }
 
-void test5(){ //some bullshit
+void test5(){ //some bullshit //ill plan this one out
 
 }
