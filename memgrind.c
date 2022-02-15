@@ -66,7 +66,7 @@ int main (int argc, char **argv){ //get the time per test all that is missing
     }
     int j;
     for(j=0;j<50;j++){
-        sum2+=test2Time[i];
+        sum2+=test2Time[j];
     }
     printf("average time for test 2: %d\n", sum2/50);
     
