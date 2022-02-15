@@ -2,6 +2,8 @@
 #include <stdlib.h>
 //#include "mymalloc.h"
 
+char *arr[120];// an array of pointers
+
 
 void test1(){ //allocate then free 120 times //ill do this one
 for(int i = 0;i<120;i++){//loop through 120 times
@@ -16,6 +18,17 @@ printf("memgrinded: %d\n", i+1);
 
 
 void test2(){ //allocate 120 times then free //you got this one
+    
+    int i;
+    for(i = 0; i< 120;i++){
+        arr[i] =(char*)malloc(1);
+        printf("allocated: %p, size: 1", arr[i])
+        free(arr[i]);
+        printf("free\n");
+        
+        
+    }
+    
 
 }
 
