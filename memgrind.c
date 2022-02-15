@@ -26,7 +26,6 @@ void test2(){ //allocate 120 times then free //you got this one
     }
     for(i = 0; i<120; i++){
         free(arr[i]);
-        arr[i] = '';
         printf("free\n");
     }
     
