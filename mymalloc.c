@@ -10,3 +10,7 @@ void *mymalloc(size_t size, char *file, int line){
     printf("Mymalloc called from %s:%d\n", file, line);
     retun NULL;
 }
+
+void myfree(void *p, char *file, int line){
+    
+}
