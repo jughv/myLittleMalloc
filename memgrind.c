@@ -22,11 +22,12 @@ void test2(){ //allocate 120 times then free //you got this one
     int i;
     for(i = 0; i< 120;i++){
         arr[i] =(char*)malloc(1);
-        printf("allocated: %p, size: 1", arr[i])
+        printf("allocated: %p, size: 1", arr[i]);
+    }
+    for(i = 0; i<120; i++){
         free(arr[i]);
+        arr[i] = '';
         printf("free\n");
-        
-        
     }
     
 
