@@ -3,81 +3,69 @@
 #include "mymalloc.h"
 #include <stddef.h>
 #include <ctype.h>
+static char memory[MAXSIZE];
 
 
 
 
 
 void initiate(){//initializing the memoery 
-    mainBlock->size = MAXSIZE-sizeof(struct block);
-    mainBlock->free_block = 1;
-    mainBlock->next = NULL;
-}
-
-
-
-
-void *mymalloc(size_t sizeB, char *file, int line){
-    struct block *currPtr, *prevPtr;
-    void *mallocResult;
-
-    
-    if(sizeB == 0){
-        fprintf(stderr,"Allocation size is 0 in %s:%d", file,line);
-        return NULL;
+    for(int i = 0; i< MAXSIZE;i++){
+        memory[i] = '0';
     }
-    if(sizeB+sizeof(struct block)>MAXSIZE){
-        fprintf(stderr,"Allocation size is overflow in %s:%d",file,line);
-        return NULL;
-    }
-    if(sizeB<0){
-        fprintf(stderr,"Negative anount of memory can't be allocated in %s:%d", file, line);
-        return NULL;
-    }
-    if(!(mainBlock->size)){
-        initiate();
-        printf("Initialize mamery block\n");
-    }
-    currPtr = mainBlock;
-    while (((currPtr->size)<sizeB)||((currPtr->free_block)==0)&&(currPtr->next!=NULL))
-    {
-        prevPtr = currPtr;
-        currPtr = currPtr->next;
-        printf("finding free block\n");
-        
-    }
-    if((currPtr->size)==sizeB){
-        currPtr->free_block = 0;
-        mallocResult=(void*)(++currPtr);
-        printf("Memory allocated\n");
-        return mallocResult;
-
-    }
-    else if ((currPtr->size)>(sizeB+sizeof(struct block)))
-    {
-
-        struct block *temp = (void*)((void*)currPtr+sizeB+sizeof(struct block));
-        temp->size = (currPtr->size)-sizeB-sizeof(struct block);
-        temp->free_block = 1;
-        temp->next = currPtr->next;
-        currPtr->size = sizeB;
-        currPtr->free_block = 0;
-        currPtr->next = temp;
-        mallocResult = (void*)(++currPtr);
-        printf("Memory allocated");
-        return mallocResult;
-
-    }
-    else{
-        fprintf(stderr,"Allocation size is overflow in %s:%d",file,line);
-        return NULL;
-    }
-    
-    
-
-    fprintf(stderr,"Mymalloc called from %s:%d\n", file, line);
-    return NULL;
 }
 
 void myfree(void *p, char *file, int line){
+    int i, size;
+	
+	if(p == 0){
+		fprintf(stderr, "Null pointer in %s: %d", file, line);
+    }
+
+	for(i = 0; i < MAXSIZE; i ++){
+		if(&memory[i] == p){
+			size = memory[i];
+			break;
+		}
+	}
+	for(int n = i; n < i + size; n++){
+		memory[n] = '0';
+    }
+	return;
+}
+
+
+void *mymalloc(size_t sizeB, char *file, int line){
+    if(sizeB > MAXSIZE){
+        fprintf(stderr, "Memory size exceeds Limit in %s:%d\n",file,line);
+        return NULL;
+    }
+    else if(sizeB == 0){
+        return NULL;
+    }
+    int ptr = 0;
+    int blockSize = 0;
+    while(blockSize<sizeB){
+        if(memory[ptr] == '0'){
+            blockSize++;
+        }
+        else{
+            blockSize = 0;
+        }
+
+        if(blockSize == sizeB){
+            break;
+        }
+        else if(ptr == MAXSIZE-1){//-1 is space for header
+            return NULL;
+        }
+        ptr++;
+    }
+    int newhead = ptr - sizeB + 1;
+    for(int i = newhead; i<newhead+sizeB; i++){
+        memory[i] = sizeB;
+    }
+    fprintf(stderr,"Mymalloc called from %s:%d\n", file, line);
+    return &memory[newhead];
+
 }
