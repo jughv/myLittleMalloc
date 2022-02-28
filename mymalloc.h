@@ -16,8 +16,8 @@ struct block
     struct block *next;//pointer to the next metadata
     /* data */
 };
-struct block *mainBlock = (void*)memory;
+struct block *mainBlock=(void*)memory;
 
-void initiate(){//initializing the memoery 
+void initiate();//initializing the memoery 
 
 

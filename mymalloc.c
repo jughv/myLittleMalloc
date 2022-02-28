@@ -4,9 +4,9 @@
 #include <stddef.h>
 #include <ctype.h>
 
-#define MEMSIZE 4096
 
-static char memory[4096];
+
+
 
 void initiate(){//initializing the memoery 
     mainBlock->size = MAXSIZE-sizeof(struct block);
@@ -26,7 +26,7 @@ void *mymalloc(size_t sizeB, char *file, int line){
         fprintf(stderr,"Allocation size is 0 in %s:%d", file,line);
         return NULL;
     }
-    if(sizeB+sizeof(struct block)>MEMSIZE){
+    if(sizeB+sizeof(struct block)>MAXSIZE){
         fprintf(stderr,"Allocation size is overflow in %s:%d",file,line);
         return NULL;
     }
