@@ -75,7 +75,7 @@ void *mymalloc(size_t sizeB, char *file, int line){
     
     
 
-    printf(stderr,"Mymalloc called from %s:%d\n", file, line);
+    fprintf(stderr,"Mymalloc called from %s:%d\n", file, line);
     return NULL;
 }
 
