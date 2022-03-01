@@ -16,21 +16,24 @@ void initiate(){//initializing the memoery
 }
 
 void myfree(void *p, char *file, int line){
-    int i, size;
+    int size;
 	
 	if(p == 0){
-		fprintf(stderr, "Null pointer in %s: %d", file, line);
+		fprintf(stderr, "Null pointer: %s:%d", file, line);
+		return;
     }
 
-	for(i = 0; i < MAXSIZE; i ++){
+	for(int i = 0; i < MAXSIZE; i ++){
 		if(&memory[i] == p){
 			size = memory[i];
-			break;
+		for(int n = i; n < i + size; n++){
+			memory[n] = '0';
+            }
+			return;
 		}
 	}
-	for(int n = i; n < i + size; n++){
-		memory[n] = '0';
-    }
+
+	fprintf(stderr, "Pointer DNE: %s:%d", file, line);
 	return;
 }
 
